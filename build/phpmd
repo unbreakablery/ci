@@ -1,0 +1,4 @@
+C:\cygwin64\home\johan\dbwebb-kurser\mvc\me\ci\app\Http\Controllers\Yatzy\Yatzy.php:22	The method yatzy() has a Cyclomatic Complexity of 22. The configured cyclomatic complexity threshold is 10.
+C:\cygwin64\home\johan\dbwebb-kurser\mvc\me\ci\app\Http\Controllers\Yatzy\Yatzy.php:22	The method yatzy() has an NPath complexity of 151552. The configured NPath complexity threshold is 200.
+C:\cygwin64\home\johan\dbwebb-kurser\mvc\me\ci\app\Http\Controllers\Yatzy\Yatzy.php:22	The method yatzy() has 110 lines of code. Current threshold is set to 100. Avoid really long methods.
+C:\cygwin64\home\johan\dbwebb-kurser\mvc\me\ci\app\Http\Controllers\Yatzy\Yatzy.php:149	The method rollDice() has a Cyclomatic Complexity of 10. The configured cyclomatic complexity threshold is 10.
