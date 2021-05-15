@@ -9,6 +9,12 @@ build:
         override:
             - true
     nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    - phpcs-run
+
         my-tests:
             environment:
                 php:
