@@ -6,6 +6,8 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/unbreakablery/ci/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/unbreakablery/ci/?branch=main)
 
+[![Scrutinizer Code Intelligence Status](https://scrutinizer-ci.com/g/unbreakablery/ci/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/g/unbreakablery/ci/?branch=main)
+
 Integrate your application with a CI chain
 ===============================
 
