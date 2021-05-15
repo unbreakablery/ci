@@ -1,13 +1,10 @@
 <?php
 
-// classes within \Controllers
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HelloWorldController;
-use Joki20\Http\Controllers\Dice;
-use Joki20\Http\Controllers\DiceHand;
-use Joki20\Http\Controllers\Game21;
-use Joki20\Http\Controllers\Yatzy;
-use Joki20\Models\Books;
+
+use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\DiceGameController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,54 +17,25 @@ use Joki20\Models\Books;
 |
 */
 
-// Added for mos example code
-Route::get('/hello-world', function () {
-    echo "Hello World";
-});
-Route::get('/hello-world-view', function () {
-    return view('message', [
-        'message' => "Hello World from within a view"
-    ]);
-});
-// resources/views/dice.blade.php
-// after ::class is name of function within class Dice
-Route::get('/', function () {
-    return view('home');
-});
-
-Route::get('/info', function () {
-    return view('info');
-});
-Route::get('/dice', function () {
-    return view('dice');
-});
-Route::get('/game21', function () {
-    return view('game21');
-});
-Route::post('/game21', function () {
-    return view('game21');
-});
-
-Route::get('/yatzy', function () {
-    return view('yatzy');
-});
-Route::post('/yatzy', function () {
-    return view('yatzy');
-});
-
-Route::get('/books', function () {
-    return view('books');
-});
-
-Route::get('/highscore', function () {
-    return view('highscore');
-});
-
-Route::get('/message', function () {
-    return view('message');
-});
-
-//Route::post('/game21', [Game21::class, 'game21']);
-
-Route::get('/hello', [HelloWorldController::class, 'hello']);
-Route::get('/hello/{message}', [HelloWorldController::class, 'hello']);
+Route::get('/', [HomepageController::class, 'index'], function () {
+})->name('landing-page');
+Route::get('game21', [DiceGameController::class, 'index'], function () {
+})->name('game21');
+Route::post('game21', [DiceGameController::class, 'saveSetting'], function () {
+})->name('game21-save-setting');
+Route::get('game21/player/roll', [DiceGameController::class, 'playRoll'], function () {
+})->name('game21-player-roll');
+Route::get('game21/computer/play', [DiceGameController::class, 'playComputer'], function () {
+})->name('game21-computer-play');
+Route::get('game21/view/result', [DiceGameController::class, 'viewResult'], function () {
+})->name('game21-view-result');
+Route::get('game21/view/history', [DiceGameController::class, 'viewHistory'], function () {
+})->name('game21-view-history');
+Route::get('game21/clear/history', [DiceGameController::class, 'clearHistory'], function () {
+})->name('game21-clear-history');
+Route::get('game21/view/highscores', [DiceGameController::class, 'viewHighScores'], function () {
+})->name('game21-view-highscores');
+Route::get('game21/clear/highscores', [DiceGameController::class, 'clearHighScores'], function () {
+})->name('game21-clear-highscores');
+Route::get('books', [BookController::class, 'index'], function () {
+})->name('books');
