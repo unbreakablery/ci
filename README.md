@@ -1,15 +1,18 @@
-Game21 integrated with a CI chain
+# MVC execrise integrated with a CI chain
 ===============================
 
-[![Build Status](https://travis-ci.com/unbreakablery/ci.svg?branch=main)](https://travis-ci.com/unbreakablery/ci)
+##### Travis CI
+[![Build Status](https://travis-ci.com/beha20/framework.svg?branch=main)](https://travis-ci.com/beha20/framework)
 
-[![Build Status](https://scrutinizer-ci.com/g/unbreakablery/ci/badges/build.png?b=main)](https://scrutinizer-ci.com/g/unbreakablery/ci/build-status/main)
 
-[![Code Coverage](https://scrutinizer-ci.com/g/unbreakablery/ci/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/unbreakablery/ci/?branch=main)
+##### Scrutinizer CI
+[![Build Status](https://scrutinizer-ci.com/g/beha20/framework/badges/build.png?b=main)](https://scrutinizer-ci.com/g/beha20/framework/build-status/main)
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/unbreakablery/ci/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/unbreakablery/ci/?branch=main)
+[![Code Coverage](https://scrutinizer-ci.com/g/beha20/framework/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/beha20/framework/?branch=main)
 
-[![Scrutinizer Code Intelligence Status](https://scrutinizer-ci.com/g/unbreakablery/ci/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/g/unbreakablery/ci/?branch=main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/beha20/framework/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/beha20/framework/?branch=main)
+
+[![Scrutinizer Code Intelligence Status](https://scrutinizer-ci.com/g/beha20/framework/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/g/beha20/framework/?branch=main)
 
 
 This is a short simplified guide on how to integrate your Git repo on GitHub / GitLab with the construction services Travis and Scrutinizer.

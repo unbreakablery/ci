@@ -8,6 +8,6 @@
     {!! $diceImg !!}
 @endforeach
 </p>
-<p>You can see my code on <a href="https://github.com/beha20/mvc">Github</a></p>
+<p>You can see my code on <a href="https://github.com/beha20/framework">Github</a></p>
 
 @include('footer')
