@@ -5,6 +5,10 @@ namespace Tests\Unit;
 // use PHPUnit\Framework\TestCase;
 use Tests\TestCase;
 use App\Http\Controllers\DiceGameController;
+use App\Models\History;
+use App\Models\Settings;
+use App\Models\HighScores;
+
 
 class ControllerDiceGameTest extends TestCase
 {
@@ -44,6 +48,15 @@ class ControllerDiceGameTest extends TestCase
     public function testViewHistory()
     {
         $response = $this->get('/game21/view/history');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * test viewHelp
+     */
+    public function testViewHelp()
+    {
+        $response = $this->get('/game21/view/help');
         $response->assertStatus(200);
     }
 

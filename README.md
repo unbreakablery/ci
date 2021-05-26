@@ -1,4 +1,4 @@
-# MVC execrise integrated with a CI chain
+# Game21 Project
 ===============================
 
 ##### Travis CI
@@ -15,48 +15,42 @@
 [![Scrutinizer Code Intelligence Status](https://scrutinizer-ci.com/g/beha20/framework/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/g/beha20/framework/?branch=main)
 
 
-This is a short simplified guide on how to integrate your Git repo on GitHub / GitLab with the construction services Travis and Scrutinizer.
+This project is a simple dice game built by Laravel v8 MVC Framework.
 
-The purpose is mainly to show the configuration files that work for Travis and Scrutinizer respectively.
+You can play 21 against the computer with betting.
 
-Travis
+This game will use Sqlite database for saving highscore and history.
+
+This project contains the game flow chart and some psuedo codes. (/doc)
+
+Installation
 -------------------------------
 
-The service is [Travis CI] (https://www.travis-ci.com/) (note that it is .com and not .org).
+You can clone this repo or download zip from github.
 
-You can use a given account from GitHub (or similar) to log in to Travis.
+git clone [repository link]
 
-Link Travis with your repos on GitHub / GitLab.
+composer install
 
-Do not forget the [documentation] (https://docs.travis-ci.com/).
+npm install
 
-Add a `.travis.yml` configuration file (see [Travis configuration file example] (https://github.com/dbwebb-se/mvc/blob/main/example/ci/.travis.yml)) to your repo.
+Feel free to configure your .env
 
-Read more about [PHP configuration file] (https://docs.travis-ci.com/user/languages/php/).
-
-Adjust which versions of PHP you want to test against and how to install the development environment and run the tests.
-
-Commit and push to GitHub / GitLab.
-
-Travis will now be notified and check out your repo and execute the instructions according to the configuration file.
-
-Scrutinizer
+How to play
 -------------------------------
 
-The service is [Scrutinizer CI] (https://scrutinizer-ci.com/).
+You can hit [Game21] in menu and play this game.
 
-You can use a given account from GitHub (or similar) to log in to Scrutinizer.
+You can see the game high scores and history.
 
-Link Scrutinizer with one of your repositories on GitHub / GitLab.
+Please review [Help] for game rules.
 
-Do not forget the [documentation] (https://scrutinizer-ci.com/docs/).
+![](screenshots/home_page.png)
 
-Add a configuration file `.scrutinizer.yml` (see [example of configuration file for Scrutinizer] (https://github.com/dbwebb-se/mvc/blob/main/example/ci/.scrutinizer.yml)) in your repo.
+![](screenshots/dice_roll.png)
 
-Read more about [PHP configuration file] (https://scrutinizer-ci.com/docs/guides/php/continuous-integration-deployment).
+![](screenshots/view_result.png)
 
-Adjust which versions of PHP you want to test against and how to install the development environment and run the tests. Also double check which paths are excluded from driving.
+![](screenshots/view_history.png)
 
-Commit and push to GitHub / GitLab.
-
-Scrutinizer will now be notified and check out your repo and execute the instructions according to the configuration file.
+![](screenshots/view_highscores.png)

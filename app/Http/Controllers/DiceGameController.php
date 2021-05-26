@@ -17,16 +17,14 @@ class DiceGameController extends Controller
                     'bet-amount'        => 0,
                     'your-points'       => 0,
                     'computer-points'   => 0,
-                    'game-ended'        => false,
-                    'your-wins'         => (session('your-wins') == null) ? 0 : session('your-wins'),
-                    'computer-wins'     => (session('computer-wins') == null) ? 0 : session('computer-wins'),
-                    'history'           => (session('history') == null) ? array() : session('history')
+                    'game-ended'        => false
                 ]);
     }
     protected function clearSessionGame21()
     {
         session([
                     'cnt-dices'         => 2,
+                    'bet-amount'        => 0,
                     'your-points'       => 0,
                     'computer-points'   => 0,
                     'game-ended'        => false
