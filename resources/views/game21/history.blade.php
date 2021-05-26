@@ -7,7 +7,7 @@
 <h3 class="text-info">Computer wins: {{ $computerWins }}</h3>
 <hr />
 <h3 class="text-success">Your Balance: {{ $yourBalance }}</h3>
-<h3 class="text-info">Computer wins: {{ $computerBalance }}</h3>
+<h3 class="text-info">Computer Balance: {{ $computerBalance }}</h3>
 
 <table class="history">
     <thead>
