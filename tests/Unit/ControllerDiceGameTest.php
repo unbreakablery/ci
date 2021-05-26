@@ -49,6 +49,7 @@ class ControllerDiceGameTest extends TestCase
      */
     public function testSaveSettingGame21()
     {
+        $controller = new DiceGameController();
         $controller->saveSettingGame21(2, 5);
         $this->assertEquals(session('bet-amount'), 5);
     }
