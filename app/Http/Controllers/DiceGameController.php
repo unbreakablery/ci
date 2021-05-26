@@ -10,7 +10,7 @@ use App\Models\Settings;
 
 class DiceGameController extends Controller
 {   
-    protected function initSessionGame21()
+    public function initSessionGame21()
     {
         session([
                     'cnt-dices'         => 2,
@@ -20,7 +20,7 @@ class DiceGameController extends Controller
                     'game-ended'        => false
                 ]);
     }
-    protected function clearSessionGame21()
+    public function clearSessionGame21()
     {
         session([
                     'cnt-dices'         => 2,
@@ -36,14 +36,14 @@ class DiceGameController extends Controller
                     'coin2' => 100
                 ]);
     }
-    protected function saveSettingGame21($cntDices, $betAmount)
+    public function saveSettingGame21($cntDices, $betAmount)
     {
         session([
                     'cnt-dices'     => $cntDices,
                     'bet-amount'    => $betAmount
                 ]);
     }
-    protected function setPoints($turn, $points)
+    public function setPoints($turn, $points)
     {
         $current_points = session($turn);
         session([$turn => $current_points + $points]);
@@ -67,7 +67,7 @@ class DiceGameController extends Controller
 
         return 'Computer';
     }
-    protected function checkYourPoints()
+    public function checkYourPoints()
     {
         $yourPoints = session('your-points');
 
@@ -80,7 +80,7 @@ class DiceGameController extends Controller
         }
         return '';
     }
-    protected function updateBalance($winner, $betAmount) {
+    public function updateBalance($winner, $betAmount) {
         $settings = Settings::get()->first();
         
         Settings::where('id', 1)
@@ -89,7 +89,7 @@ class DiceGameController extends Controller
                     'coin2' => ($winner == 'Computer') ? $settings->coin2 + $betAmount : $settings->coin2 - $betAmount
                 ]);
     }
-    protected function updateHistory($winner)
+    public function updateHistory($winner)
     {
         $history = new History();
         $history->date = date('Y-m-d H:i:s');
@@ -99,12 +99,12 @@ class DiceGameController extends Controller
         $history->bet_amount = session('bet-amount');
         $history->save();
     }
-    protected function getHighScore()
+    public function getHighScore()
     {
         $maxScore = HighScores::max('score');
         return ($maxScore == null) ? 0 : $maxScore;
     }
-    protected function saveHighScore($player, $score)
+    public function saveHighScore($player, $score)
     {
         HighScores::insert([
                                 'date'      => date('Y-m-d H:i:s'),
@@ -112,7 +112,7 @@ class DiceGameController extends Controller
                                 'score'     => $score
                             ]);
     }
-    protected function getWins($player = 'You') {
+    public function getWins($player = 'You') {
         return History::where('winner', $player)
                     ->count();
     }
