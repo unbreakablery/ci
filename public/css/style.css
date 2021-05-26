@@ -182,20 +182,26 @@ button.btn.btn-primary {
     animation: rotation 0.2s linear;
 }
 
-table.books,
+table.history,
 table.highscores {
     width: 100%;
     margin: 1rem 0;
 }
-table.books th,
+
+table.history th,
 table.highscores th {
     background-color: #333;
     color: #fff;
 }
-table.books th,
-table.books td,
+
+table.history th,
+table.history td,
 table.highscores th,
 table.highscores td {
     border: 1px solid #777;
     padding: 0.5rem;
+}
+
+input.bet-amount {
+    width: 180px;
 }

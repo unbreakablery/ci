@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Dice\DiceHand;
 use App\Models\HighScores;
-
-use DateTime;
+use App\Models\History;
+use App\Models\Settings;
 
 class DiceGameController extends Controller
 {   
@@ -14,6 +14,7 @@ class DiceGameController extends Controller
     {
         session([
                     'cnt-dices'         => 2,
+                    'bet-amount'        => 0,
                     'your-points'       => 0,
                     'computer-points'   => 0,
                     'game-ended'        => false,
@@ -28,16 +29,20 @@ class DiceGameController extends Controller
                     'cnt-dices'         => 2,
                     'your-points'       => 0,
                     'computer-points'   => 0,
-                    'game-ended'        => false,
-                    'your-wins'         => 0,
-                    'computer-wins'     => 0,
-                    'history'           => array()
+                    'game-ended'        => false
+                ]);
+        History::truncate();
+        Settings::where('id', 1)
+                ->update([
+                    'coin1' => 10,
+                    'coin2' => 100
                 ]);
     }
-    protected function saveSettingGame21($cntDices)
+    protected function saveSettingGame21($cntDices, $betAmount)
     {
         session([
-                    'cnt-dices' => $cntDices
+                    'cnt-dices'     => $cntDices,
+                    'bet-amount'    => $betAmount
                 ]);
     }
     protected function setPoints($turn, $points)
@@ -77,19 +82,24 @@ class DiceGameController extends Controller
         }
         return '';
     }
+    protected function updateBalance($winner, $betAmount) {
+        $settings = Settings::get()->first();
+        
+        Settings::where('id', 1)
+                ->update([
+                    'coin1' => ($winner == 'You') ? $settings->coin1 + $betAmount : $settings->coin1 - $betAmount,
+                    'coin2' => ($winner == 'Computer') ? $settings->coin2 + $betAmount : $settings->coin2 - $betAmount
+                ]);
+    }
     protected function updateHistory($winner)
     {
-        $history = array(
-            'winner'            => $winner,
-            'your-points'       => session('your-points'),
-            'computer-points'   => session('computer-points')
-        );
-        $histories = session('history');
-        if ($histories == null) {
-            session(['history' => array()]);
-        }
-        array_push($histories, $history);
-        session(['history' => $histories]);
+        $history = new History();
+        $history->date = date('Y-m-d H:i:s');
+        $history->winner = $winner;
+        $history->point1 = session('your-points');
+        $history->point2 = session('computer-points');
+        $history->bet_amount = session('bet-amount');
+        $history->save();
     }
     protected function getHighScore()
     {
@@ -98,36 +108,59 @@ class DiceGameController extends Controller
     }
     protected function saveHighScore($player, $score)
     {
-        $date = DateTime::createFromFormat('Y-m-d H:s:i', now());
         HighScores::insert([
-                                'date'      => $date,
+                                'date'      => date('Y-m-d H:i:s'),
                                 'player'    => $player,
                                 'score'     => $score
                             ]);
     }
+    protected function getWins($player = 'You') {
+        return History::where('winner', $player)
+                    ->count();
+    }
     public function index() 
     {
+        $settings = Settings::get()->first();
         $this->initSessionGame21();
 
         return view('game21.setting', [
             'pageName'          => 'Game21',
-            'menuGame21Class'   => 'selected'
+            'menuGame21Class'   => 'selected',
+            'settings'          => $settings
         ]);
     }
     public function saveSetting(Request $request)
     {
         $cntDices = $request->input('cnt-dices');
+        $yourBetAmount = $request->input('bet-amount');
         
+        Settings::where('id', 1)
+                ->update([
+                    'cnt_dices' => $cntDices
+                ]);
+
+        $settings = Settings::get()->first();
+        $computerBetAmount = rand(0, 50) / 100 * $settings->coin2;
+        $betAmount = ($yourBetAmount < $computerBetAmount) ? $yourBetAmount : $computerBetAmount;
+
         $this->initSessionGame21();
-        $this->saveSettingGame21($cntDices);
+        $this->saveSettingGame21($cntDices, $betAmount);
+
+        $your_wins = $this->getWins('You');
+        $computer_wins = $this->getWins('Computer');
         
         return view('game21.start', [
             'pageName'          => 'Game21',
             'menuGame21Class'   => 'selected',
             'yourPoints'        => session('your-points'),
             'computerPoints'    => session('computer-points'),
-            'yourWins'          => session('your-wins'),
-            'computerWins'      => session('computer-wins')
+            'yourWins'          => $your_wins,
+            'computerWins'      => $computer_wins,
+            'yourBalance'       => $settings->coin1,
+            'computerBalance'   => $settings->coin2,
+            'yourBetAmount'     => $yourBetAmount,
+            'computerBetAmount' => $computerBetAmount,
+            'betAmount'         => $betAmount
         ]);
     }
     public function playRoll()
@@ -176,16 +209,12 @@ class DiceGameController extends Controller
 
         if ($winner == 'You') {
             $message = 'You Won!';
-            $yourWins = session('your-wins');
-            session(['your-wins' => ++$yourWins]);
             if ($maxScore < session('your-points')) {
                 $this->saveHighScore('You', session('your-points'));
                 $highScoreMsg = 'You got high score!';
             }
         } elseif ($winner == 'Computer') {
             $message = 'You Lose!';
-            $computerWins = session('computer-wins');
-            session(['computer-wins' => ++$computerWins]);
             if ($maxScore < session('computer-points')) {
                 $this->saveHighScore('Computer', session('computer-points'));
                 $highScoreMsg = 'Computer got high score!';
@@ -194,30 +223,39 @@ class DiceGameController extends Controller
             return redirect()->route('game21-view-history');
         }
         
+        $this->updateBalance($winner, session('bet-amount'));
         $this->updateHistory($winner);
+
+        $settings = Settings::get()->first();
         
         return view('game21.result', [
             'pageName'          => 'Game21',
             'menuGame21Class'   => 'selected',
             'yourPoints'        => session('your-points'),
             'computerPoints'    => session('computer-points'),
-            'yourWins'          => session('your-wins'),
-            'computerWins'      => session('computer-wins'),
+            'yourWins'          => $this->getWins('You'),
+            'computerWins'      => $this->getWins('Computer'),
             'message'           => $message,
-            'highScoreMsg'      => $highScoreMsg
+            'highScoreMsg'      => $highScoreMsg,
+            'yourBalance'       => $settings->coin1,
+            'computerBalance'   => $settings->coin2
         ]);
     }
     public function viewHistory()
     {
-        if (session('history') == null) {
-            session(['history' => array()]);
-        }
+        $settings = Settings::get()->first();
+
+        $history = History::orderBy('date', 'DESC')
+                        ->get();
+        
         return view('game21.history', [
             'pageName'          => 'Game21',
             'menuHistoryClass'  => 'selected',
-            'yourWins'          => session('your-wins'),
-            'computerWins'      => session('computer-wins'),
-            'history'           => session('history')
+            'yourWins'          => $this->getWins('You'),
+            'computerWins'      => $this->getWins('Computer'),
+            'yourBalance'       => $settings->coin1,
+            'computerBalance'   => $settings->coin2,
+            'history'           => $history
         ]);
     }
     public function clearHistory()
@@ -229,6 +267,7 @@ class DiceGameController extends Controller
     public function viewHighScores()
     {
         $highScores = HighScores::orderBy('score', 'DESC')->get();
+
         return view('game21.highscores', [
             'pageName'              => 'Game21',
             'menuHighscoresClass'   => 'selected',
@@ -242,6 +281,13 @@ class DiceGameController extends Controller
             'pageName'              => 'Game21',
             'menuHighscoresClass'   => 'selected',
             'highScores'            => []
+        ]);
+    }
+    public function viewHelp()
+    {
+        return view('game21.help', [
+            'pageName'      => 'Help - Game21',
+            'menuHelpClass' => 'selected'
         ]);
     }
 }

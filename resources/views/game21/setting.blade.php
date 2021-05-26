@@ -8,8 +8,9 @@
     <p>
         <label for="cnt-dices">Number of Dices: </label>
         <select name="cnt-dices" id="cnt-dices">
-            <option value="1">1</option>
-            <option value="2" selected>2</option>
+            @for ($i = 1; $i <= 2; $i++)
+            <option value="{{ $i }}" @if ($i == $settings->cnt_dices) {{ 'selected' }} @endif>{{ $i }}</option>
+            @endfor
         </select>
     </p>
     <p>
@@ -17,6 +18,10 @@
         <select name="dice-type" id="dice-type">
             <option value="graphical" selected>Graphical</option>
         </select>
+    </p>
+    <p>
+        <label for="dice-type">Bet Amount: </label>
+        <input type="number" class="bet-amount" name="bet-amount" placeholder="Max: 50% of your bitcoins" min="0" max="{{ $settings->coin1 / 2 }}" step="0.01" required /> (Your BTC: {{ $settings->coin1 }})
     </p>
     <p class="btn-wrapper">
         <button type="submit" class="btn-submit">Save</button>

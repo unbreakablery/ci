@@ -6,6 +6,9 @@
 <p>Your points: {{ $yourPoints }}</p>
 <p>Computer points: {{ $computerPoints }}</p>
 <h3 class="text-italic text-info">{{ $highScoreMsg }}</h3>
+<hr />
+<p>Your Balance: {{ $yourBalance }}</p>
+<p>Computer Balance: {{ $computerBalance }}</p>
 
 <h2>Game History</h2>
 <p>Your wins: {{ $yourWins }}</p>

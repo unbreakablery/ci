@@ -23,7 +23,7 @@
         <a href="{{ route('game21') }}" class="@if (isset($menuGame21Class) && $menuGame21Class == 'selected') selected @endif">Game 21</a>
         <a href="{{ route('game21-view-history') }}" class="@if (isset($menuHistoryClass) && $menuHistoryClass == 'selected') selected @endif">Game History</a>
         <a href="{{ route('game21-view-highscores') }}" class="@if (isset($menuHighscoresClass) && $menuHighscoresClass == 'selected') selected @endif">High Scores</a>
-        <a href="{{ route('books') }}" class="@if (isset($menuBooksClass) && $menuBooksClass == 'selected') selected @endif">Books</a>
+        <a href="{{ route('game21-view-help') }}" class="@if (isset($menuHelpClass) && $menuHelpClass == 'selected') selected @endif">Help</a>
     </nav>
 </header>
 <main>

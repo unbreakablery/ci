@@ -37,5 +37,5 @@ Route::get('game21/view/highscores', [DiceGameController::class, 'viewHighScores
 })->name('game21-view-highscores');
 Route::get('game21/clear/highscores', [DiceGameController::class, 'clearHighScores'], function () {
 })->name('game21-clear-highscores');
-Route::get('books', [BookController::class, 'index'], function () {
-})->name('books');
+Route::get('game21/view/help', [DiceGameController::class, 'viewHelp'], function () {
+})->name('game21-view-help');

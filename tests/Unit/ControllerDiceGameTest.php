@@ -22,7 +22,10 @@ class ControllerDiceGameTest extends TestCase
      */
     public function testSaveSetting()
     {
-        $response = $this->post('/game21', ['cnt-dices' => 2]);
+        $response = $this->post('/game21', [
+            'cnt-dices' => 2, 
+            'bet-amount' => 5
+        ]);
         $response->assertStatus(200);
     }
 

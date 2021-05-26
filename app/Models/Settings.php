@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Books extends Model
+class Settings extends Model
 {
     use HasFactory;
 
-    protected $table = 'books';
+    protected $table = 'settings';
 
     protected $fillable = [
-        'isbn',
-        'title',
-        'author',
-        'image_url'
+        'cnt_dices',
+        'dice_type',
+        'coin1',
+        'coin2'
     ];
 
     public $timestamps = false;
