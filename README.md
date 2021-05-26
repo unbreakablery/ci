@@ -45,12 +45,12 @@ You can see the game high scores and history.
 
 Please review [Help] for game rules.
 
-![](screenshots/home_page.png)
+![](screenshots/screenshot_home_page.png)
 
-![](screenshots/dice_roll.png)
+![](screenshots/screenshot_dice_roll.png)
 
-![](screenshots/view_result.png)
+![](screenshots/screenshot_view_result.png)
 
-![](screenshots/view_history.png)
+![](screenshots/screenshot_view_history.png)
 
-![](screenshots/view_highscores.png)
+![](screenshots/screenshot_view_highscores.png)
